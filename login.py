@@ -77,7 +77,7 @@ class TwitchLogin:
                         else:
                             print('Invalid Login Verification code entered, please try again.')
 
-                        twofa = input(f'Please enter the 6-digit code sent to {self.email}: ')
+                        twofa = input('Please enter the 6-digit code sent to {}: '.format(self.email))
                         post_data['twitchguard_code'] = twofa.strip()
                         continue
 
@@ -89,8 +89,8 @@ class TwitchLogin:
                         use_backup_flow = True
                         break
                     else:
-                        print(f'Unknown error: {login_response}')
-                        raise NotImplementedError(f'Unknown TwitchAPI error code: {err_code}')
+                        print('Unknown error: {}'.format(login_response))
+                        raise NotImplementedError('Unknown TwitchAPI error code: {}'.format(err_code))
 
                 if 'access_token' in login_response:
                     self.set_token(login_response['access_token'])
@@ -107,7 +107,7 @@ class TwitchLogin:
 
     def set_token(self, new_token):
         self.token = new_token
-        self.session.headers.update({'Authorization': f'Bearer {self.token}'})
+        self.session.headers.update({'Authorization': 'Bearer {}'.format(self.token)})
 
     def send_login_request(self, json_data):
         r = self.session.post('https://passport.twitch.tv/login', json=json_data)
@@ -138,7 +138,7 @@ class TwitchLogin:
         if self.token is None:
             return False
 
-        r = self.session.get(f'https://api.twitch.tv/helix/users?login={self.username}')
+        r = self.session.get('https://api.twitch.tv/helix/users?login={}'.format(self.username))
         response = r.json()
         if "data" in response:
             self.login_check_result = True

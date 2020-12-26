@@ -15,7 +15,7 @@ def get_cookie_value(key):
                 return cookie["value"]
     # delete current cookie file as it's invalid
     os.remove(get_cookies_path())
-    raise WrongCookiesException(f"Can't find cookie for key {key}, must login again!")
+    raise WrongCookiesException("Can't find cookie for key {}, must login again!".format(key))
 
 
 cookies_cached = None

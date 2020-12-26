@@ -72,7 +72,7 @@ def on_message(ws, message):
                     new_balance = message_data["balance"]["balance"]
                     channel_login = get_login_by_channel_id(channel_id)
                     reason_name = get_reason_name(message_data["point_gain"]["reason_code"])
-                    print(f"{new_balance} channel points for {channel_login}! Reason: {reason_name}.")
+                    print("{} channel points for {}! Reason: {}.".format(new_balance, channel_login, reason_name))
             elif message_type == "claim-available":
                 channel_id = message_data["claim"]["channel_id"]
                 if channel_id in get_streamer_ids():
@@ -97,7 +97,7 @@ def on_message(ws, message):
                 update_raid(channel_login, raid)
 
     elif response["type"] == "RESPONSE" and len(response.get("error", "")) > 0:
-        raise RuntimeError(f"Error while trying to listen for a topic: {response}")
+        raise RuntimeError("Error while trying to listen for a topic: {}".format(response))
 
     elif response["type"] == "RECONNECT":
         WebsocketsPool.handle_websocket_reconnection(ws)
@@ -117,9 +117,9 @@ class PubsubTopic:
 
     def __str__(self):
         if self.is_user_topic():
-            return f"{self.topic}.{get_user_id()}"
+            return "{}.{}".format(self.topic, get_user_id())
         else:
-            return f"{self.topic}.{get_channel_id(self.channel_login)}"
+            return "{}.{}".format(self.topic, get_channel_id(self.channel_login))
 
 
 class WebsocketsPool:  # you can't listen for more than 50 topics at once

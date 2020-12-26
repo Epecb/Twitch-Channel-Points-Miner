@@ -41,7 +41,7 @@ def read_streamer_logins():
         try:
             get_channel_id(streamer_login)
         except StreamerDoesNotExistException:
-            print(f"Streamer {streamer_login} does not exist")
+            print("Streamer {} does not exist".format(streamer_login))
         else:
             streamer_logins.append(streamer_login)
     return streamer_logins

@@ -48,7 +48,7 @@ def check_online(streamer_login, print_offline_message=False):
         except StreamerIsOfflineException:
             set_offline(streamer_login, print_offline_message)
         else:
-            print(f"{streamer_login} is live!")
+            print("{} is live!".format(streamer_login))
 
 
 def set_offline(streamer_login, print_offline_message=True):
@@ -57,7 +57,7 @@ def set_offline(streamer_login, print_offline_message=True):
         last_offline_time[streamer_login] = time.time()
 
         if print_offline_message:
-            print(f"{streamer_login} is offline currently.")
+            print("{} is offline currently.".format(streamer_login))
 
 
 def is_online(streamer_login):
@@ -74,7 +74,7 @@ login_by_channel_id = {}
 
 def get_channel_id(streamer_login):
     if streamer_login not in channel_id_by_login:
-        r = requests.get(f"https://api.twitch.tv/helix/users?login={streamer_login}",
+        r = requests.get("https://api.twitch.tv/helix/users?login={}".format(streamer_login),
                          headers={"Authorization": "Bearer " + get_auth_token(),
                                   "Client-Id": get_client_id()})
         data = r.json()["data"]
@@ -110,7 +110,7 @@ def get_broadcast_id(streamer_login):
 
 
 def get_streamer_url(streamer_login):
-    return f"https://www.twitch.tv/{streamer_login}"
+    return "https://www.twitch.tv/{}".format(streamer_login)
 
 
 def get_auth_token():
