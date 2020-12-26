@@ -72,7 +72,9 @@ def on_message(ws, message):
                     new_balance = message_data["balance"]["balance"]
                     channel_login = get_login_by_channel_id(channel_id)
                     reason_name = get_reason_name(message_data["point_gain"]["reason_code"])
-                    print("{} channel points for {}! Reason: {}.".format(new_balance, channel_login, reason_name))
+                    print("{} : {} channel points for {}! Reason: {}.".format(
+                        time.strftime('%Y/%m/%d %H:%M:%S'), new_balance,
+                        channel_login, reason_name))
             elif message_type == "claim-available":
                 channel_id = message_data["claim"]["channel_id"]
                 if channel_id in get_streamer_ids():

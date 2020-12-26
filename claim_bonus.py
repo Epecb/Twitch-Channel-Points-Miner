@@ -1,3 +1,4 @@
+import time
 import requests
 from exceptions import StreamerDoesNotExistException
 from twitch_data import get_auth_token, get_channel_id, USER_AGENT, get_client_id
@@ -27,7 +28,7 @@ def load_channel_points_context(streamer_login):
         raise StreamerDoesNotExistException
     community_points = response["data"]["community"]["channel"]["self"]["communityPoints"]
     initial_balance = community_points["balance"]
-    print("{} channel points for {}!".format(initial_balance, streamer_login))
+    print("{} : {} channel points for {}!".format(time.strftime('%Y/%m/%d %H:%M:%S'), initial_balance, streamer_login))
     available_claim = community_points["availableClaim"]
     if available_claim is not None:
         claim_id = available_claim["id"]
